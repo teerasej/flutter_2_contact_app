@@ -24,6 +24,15 @@ class _HomePageState extends State<HomePage> {
         future: Dio().get('https://randomuser.me/api/?results=50'),
         builder:
             (BuildContext context, AsyncSnapshot<Response<dynamic>> snapshot) {
+          if (snapshot.hasError) {
+            return Text('oops...');
+          }
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            var data = snapshot.data;
+            return Text('ok');
+          }
+
           return Center(
             child: CircularProgressIndicator(),
           );
