@@ -3,6 +3,7 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,6 +19,15 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Contacts'),
+      ),
+      body: FutureBuilder(
+        future: Dio().get('https://randomuser.me/api/?results=50'),
+        builder:
+            (BuildContext context, AsyncSnapshot<Response<dynamic>> snapshot) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
